@@ -7,7 +7,7 @@ echo "Adding env variables..."
 export PATH=/root/bin:$PATH
 
 #Path to k8s config file
-KUBECONFIG=/home/blockchain-automation-framework/build/config_hospital
+KUBECONFIG=/home/blockchain-automation-framework/build/config
 
 
 echo "Running the playbook..."
