@@ -125,10 +125,7 @@ The snapshot of an organization field with sample values is below
       name: carrier
       type: member
       # Provide the url suffix that will be added in DNS recordset. Must be different for different clusters
-      external_url_suffix: test.besu.blockchaincloudpoc.com
-      # List of all public IP addresses of each availability zone from all organizations in the same k8s cluster
-      # The Ambassador will be set up using these static IPs. The child services will be assigned the first IP in this list.
-      publicIps: ["3.221.78.194","21.23.74.154"] # List of all public IP addresses of each availability zone from all organizations in the same k8s cluster        
+      external_url_suffix: test.besu.blockchaincloudpoc.com 
       cloud_provider: aws   # Options: aws, azure, gcp, minikube
 ```
 Each `organization` under the `organizations` section has the following fields. 
@@ -137,8 +134,7 @@ Each `organization` under the `organizations` section has the following fields.
 |------------------------------------------|-----------------------------------------------------|
 | name                                        | Name of the organization     |
 | type | Can be `member` for peer/member organization and `validator` for Validator organization.|
-| external_url_suffix                         | Public url suffix for the cluster. This is used to discover Orion nodes between different clusters.         |
-| publicIps | List of all public IP addresses of each availability zone from all organizations in the same k8s cluster. The Ambassador will be set up using these static IPs. The child services will be assigned the first IP in this list. |
+| external_url_suffix                         | Public url suffix for the cluster. This is used to discover Orion nodes between different clusters and to establish communication between nodes         |
 | cloud_provider                              | Cloud provider of the Kubernetes cluster for this organization. This field can be aws, azure, gcp or minikube |
 | aws                                         | Contains the AWS CLI credentials when the organization cluster is on AWS |
 | k8s                                         | Kubernetes cluster deployment variables.|
@@ -177,11 +173,12 @@ For gitops fields the snapshot from the sample configuration file with the examp
 ```yaml
       # Git Repo details which will be used by GitOps/Flux.
       gitops:
-        git_ssh: "git@github.com/<username>/blockchain-automation-framework.git" # Gitops ssh url for flux value files
+        git_protocol: "https" # Option for git over https or ssh
+        git_url: "https://github.com/<username>/blockchain-automation-framework.git" # Gitops htpps or ssh url for flux value files
         branch: "<branch_name>"                                                  # Git branch where release is being made
         release_dir: "platforms/hyperledger-besu/releases/dev" # Relative Path in the Git repo for flux sync per environment. 
         chart_source: "platforms/hyperledger-besu/charts"      # Relative Path where the Helm charts are stored in Git repo
-        git_push_url: "github.com/<username>/blockchain-automation-framework.git" # without https://
+        git_repo: "github.com/<username>/blockchain-automation-framework.git" # without https://
         username: "<username>"          # Git Service user who has rights to check-in in all branches
         password: "<password>"          # Git Server user password/personal token
         email: "<git_email>"              # Email to use in git config
@@ -192,11 +189,11 @@ The gitops field under each organization contains
 
 | Field       | Description                                              |
 |-------------|----------------------------------------------------------|
-| git_ssh                              | SSH url of the repository where flux should be synced                                                            |
+| git_url                              | SSH or HTTPs url of the repository where flux should be synced                                                            |
 | branch                               | Branch of the repository where the Helm Charts and value files are stored                                        |
 | release_dir                          | Relative path where flux should sync files                                                                       |
 | chart_source                         | Relative path where the helm charts are stored                                                                   |
-| git_push_url                         | Gitops https URL for git push like "github.com/hyperledger-labs/blockchain-automation-framework.git"             |
+| git_repo                         | Gitops git repo URL https URL for git push like "github.com/hyperledger-labs/blockchain-automation-framework.git"             |
 | username                             | Username which has access rights to read/write on repository                                                     |
 | password                             | Password of the user which has access rights to read/write on repository                                         |
 | email                                | Email of the user to be used in git config                                                                       |
