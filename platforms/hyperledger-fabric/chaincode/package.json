@@ -1,6 +1,6 @@
 {
 	"name": "bills",
-	"version": "1",
+	"version": "1.0.0",
 	"description": "bills chaincode implemented in node.js",
 	"engines": {
 		"node": ">=8.4.0",
