@@ -1,5 +1,5 @@
 {
-	"name": "billss",
+	"name": "bills",
 	"version": "1.0.0",
 	"description": "bills chaincode implemented in node.js",
 	"engines": {
